@@ -1,10 +1,13 @@
 import click
 
 @click.group()
-def cli():
+@click.pass_context
+def cli(ctx):
     """
         Hello cli space!
     """
+    ctx.ensure_object(dict)
+    ctx.obj['my_obj'] = "context_string"
 
 
 @cli.command("command1")
@@ -19,12 +22,13 @@ def command1(arg1, option):
 
 
 @cli.command("command2")
-def command2():
+@click.pass_context
+def command2(ctx):
     """
         Hello cli space!
     """
-    click.echo("Command2")
+    click.echo(ctx.obj['my_obj'])
 
 
 if __name__ == '__main__':
-    cli()
+    cli(obj={})
