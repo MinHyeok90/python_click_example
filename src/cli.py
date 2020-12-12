@@ -8,11 +8,14 @@ def cli():
 
 
 @cli.command("command1")
-def command1():
+@click.argument("arg1")
+@click.option("-o", "--option", default="hello")
+def command1(arg1, option):
     """
         Hello cli space!
     """
-    click.echo("Command1")
+    click.echo(arg1)
+    click.echo(option)
 
 
 @cli.command("command2")
