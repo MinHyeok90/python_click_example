@@ -1,4 +1,9 @@
 import click
+import os
+
+def get_path(ctx, args, incomplete):
+    return [k for k in os.listdir() if incomplete in k]
+
 
 @click.group()
 @click.pass_context
@@ -11,7 +16,7 @@ def cli(ctx):
 
 
 @cli.command("command1")
-@click.argument("arg1")
+@click.argument("arg1", autocompletion=get_path)
 @click.option("-o", "--option", default="hello")
 def command1(arg1, option):
     """
